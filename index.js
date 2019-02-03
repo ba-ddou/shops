@@ -11,6 +11,7 @@ const config = require('./lib/config');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const helpers = require('./lib/helpers');
+const handlers = require('./lib/handlers');
 
 
 // Istantiate he HTTP server
@@ -57,14 +58,37 @@ var mainServer = (req,res)=>{
 			payload : helpers.parseJsonToObject(buffer)
         }
 
-        jsonData = JSON.stringify(data);
+        var chosenHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
 
-        res.setHeader('Content-Type','application/json'); 
-        res.end(jsonData);
+        //route the request to the handler specified in the router
+        chosenHandler(data,(statusCode,payload)=>{
+            //use the status code called back by the handler or default to 200
+            statusCode = typeof(statusCode) == 'number' ? statusCode : 200;
 
-        console.log('Returning this response: ' ,jsonData);
+            //use te payload called back from the handler or default to an empty object
+            payload = typeof(payload) == 'object' ? payload : {};
+
+
+            //convert the payload to a string
+            var payloadString = JSON.stringify(payload);
+
+            //Send a response
+            res.setHeader('Content-Type','application/json');
+            res.writeHead(statusCode);
+
+            res.end(payloadString);
+
+            console.log('Returning this response: ' ,statusCode,payloadString);
+        });
+
 
     });
+
+
+    //Define a request router
+    var router = {
+        'users' : handlers.users
+    }
 
     
 
