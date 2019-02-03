@@ -1,0 +1,14 @@
+{
+  "name": "shops",
+  "version": "1.0.0",
+  "description": "an api for an application that finds shops nearby ",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Badou",
+  "license": "ISC"
+}
