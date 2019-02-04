@@ -87,7 +87,8 @@ var mainServer = (req,res)=>{
 
     //Define a request router
     var router = {
-        'users' : handlers.users
+        'users' : handlers.users,
+        'tokens' : handlers.tokens
     }
 
     
