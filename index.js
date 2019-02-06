@@ -59,7 +59,7 @@ var mainServer = (req,res)=>{
         }
 
         var chosenHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
-
+        
         //route the request to the handler specified in the router
         chosenHandler(data,(statusCode,payload)=>{
             //use the status code called back by the handler or default to 200
@@ -88,7 +88,8 @@ var mainServer = (req,res)=>{
     //Define a request router
     var router = {
         'users' : handlers.users,
-        'tokens' : handlers.tokens
+        'tokens' : handlers.tokens,
+        'impressions' : handlers.impressions
     }
 
     
