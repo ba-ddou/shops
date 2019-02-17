@@ -10,6 +10,7 @@
 
 #client
 /client/node_modules
+/client/src/icons
 
 
 # testing
