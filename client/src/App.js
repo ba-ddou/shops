@@ -11,23 +11,24 @@ class App extends Component {
       this.state = { 
         accessToken : window.localStorage.getItem('accessToken')
       }
-     
+      this.authentication = this.authentication.bind(this);
     }
     
+    authentication(token){
+      this.setState({accessToken : token});
+    }
    
   
-  render() {
-    const accessToken = this.state.accessToken;
-    if(accessToken)
-      return (
-        <Home />
-      );
-    else{
-      return(
-        <Shops />
-      );  
+    render() {
+      const accessToken = this.state.accessToken;
+      if(accessToken){return (
+          <Shops />
+        );}
+      else{
+        return(
+          <Home authentication={this.authentication} />
+        );}
     }
-  }
 }
 
 export default App;

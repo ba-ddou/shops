@@ -56,7 +56,7 @@ class AuthenticationForm extends Component {
             fullname : "",
             email : "",
             password : "",
-            saveSession : true
+            saveSession : false
          }
          this.updateForm = this.updateForm.bind(this);
          this.postForm = this.postForm.bind(this);
@@ -70,7 +70,7 @@ class AuthenticationForm extends Component {
                 fullname : "",
                 email : "",
                 password : "",
-                saveSession : true
+                saveSession : false
             });
         }
     }
@@ -108,7 +108,8 @@ class AuthenticationForm extends Component {
         if(data.accessToken){
             if(this.state.saveSession) window.localStorage.setItem('accessToken' , data.accessToken);
             else sessionStorage.accessToken = data.accessToken;
-                
+            this.props.authentication(data.accessToken);
+            
   
         }else{
             this.setState({error : data.Error});
@@ -159,7 +160,7 @@ class AuthenticationWidget extends Component {
         return ( 
             <div id="AuthenticationWidget">
                 <span id="AuthenticationWidgetTitle">{AuthenticationWidgetTitle}</span>
-                <AuthenticationForm signUp={this.props.signUp}/>
+                <AuthenticationForm signUp={this.props.signUp} authentication={this.props.authentication}/>
             </div>
          );
     }
@@ -195,7 +196,7 @@ class Home extends Component {
         return ( 
             <div id="Home">
                 <BannerGraphics />
-                <AuthenticationWidget signUp={this.state.signUp} />
+                <AuthenticationWidget signUp={this.state.signUp} authentication={this.props.authentication} />
                 <AuthenticationControles signUp={this.state.signUp} signinBtnClicked={this.signinBtnClicked} signupBtnClicked={this.signupBtnClicked}/>
             </div>
          );
