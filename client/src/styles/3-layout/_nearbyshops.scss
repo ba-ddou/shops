@@ -1,0 +1,13 @@
+
+.shops--container{
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    @include transform(translateX(-50%));
+
+}
+
+
+#shops{
+    position: relative;
+}

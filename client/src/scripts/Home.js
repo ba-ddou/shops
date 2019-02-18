@@ -21,7 +21,7 @@ const AuthenticationControles = (props) => {
  
 
 
-const AuthenticationButton = (props) => {
+const AuthenticationButton = (props) => {   
     if(props.buttonState) return(
         <div id="AuthenticationButton">
             <div>
@@ -106,7 +106,9 @@ class AuthenticationForm extends Component {
 
     processResponse(data){
         if(data.accessToken){
-            window.localStorage.setItem('accessToken' , data.accessToken);
+            if(this.state.saveSession) window.localStorage.setItem('accessToken' , data.accessToken);
+            else sessionStorage.accessToken = data.accessToken;
+                
   
         }else{
             this.setState({error : data.Error});
