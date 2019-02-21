@@ -89,7 +89,8 @@ var mainServer = (req,res)=>{
     var router = {
         'users' : handlers.users,
         'tokens' : handlers.tokens,
-        'impressions' : handlers.impressions
+        'impressions' : handlers.impressions,
+        'shops': handlers.shops
     }
 
     

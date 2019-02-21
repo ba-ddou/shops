@@ -31,13 +31,13 @@ class MobileNav extends Component {
                 </div>
                 <div id="mainNav">
                     <Link to="/">
-                        <div id="mainav--nearbyshops" className={pathname == 'Nearby Shops' ? 'mainav--button-active' : '' }></div>
+                        <div id="mainav--nearbyshops" className={pathname === 'Nearby Shops' ? 'mainav--button-active' : '' }></div>
                     </Link>
                     <Link to="/favoriteshops">
-                        <div id="mainav--favoriteshops" className={pathname == 'Favorite Shops' ? 'mainav--button-active' : '' }></div>              
+                        <div id="mainav--favoriteshops" className={pathname === 'Favorite Shops' ? 'mainav--button-active' : '' }></div>              
                     </Link>
                     <Link to="profile">
-                        <div id="mainav--profile"  className={pathname == 'Profile' ? 'mainav--button-active' : '' }></div>
+                        <div id="mainav--profile"  className={pathname === 'Profile' ? 'mainav--button-active' : '' }></div>
                     </Link>
                     
 
@@ -67,10 +67,10 @@ class Navigation extends Component {
 
     render() { 
         var pathname = this.props.location.pathname.replace(/^\/+|\/+$/g,'');
-        pathname = pathname == '' ? 'Nearby Shops' : pathname;
-        pathname = pathname == 'favoriteshops' ? 'Favorite Shops' : pathname;
-        pathname = pathname == 'profile' ? 'Profile' : pathname;
-        const nav = this.state.device=='mobile' ? <MobileNav pathname={pathname} /> : <WebNav pathname={pathname} />;
+        pathname = pathname === '' ? 'Nearby Shops' : pathname;
+        pathname = pathname === 'favoriteshops' ? 'Favorite Shops' : pathname;
+        pathname = pathname === 'profile' ? 'Profile' : pathname;
+        const nav = this.state.device==='mobile' ? <MobileNav pathname={pathname} /> : <WebNav pathname={pathname} />;
         
         return ( 
             <React.Fragment>

@@ -4,7 +4,7 @@
     width: 90vw;
     height: 120vw;
     margin-bottom: 20px;
-    
+    border-bottom: $lightGrey 1px solid;
     .shop--info{
         position: relative;
         width: 100%;
@@ -17,7 +17,8 @@
             height: 15px;
         }
         .shop--info-image{
-            
+            width: 90vw;
+            height: 90vw;
         }
     }
                 
@@ -65,8 +66,7 @@
             background-color: $lightGrey;
         }
         .shop--info-image{
-            width: 90vw;
-            height: 90vw;
+            
             background-color: $lightGrey;
         }
     }

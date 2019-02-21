@@ -8,8 +8,45 @@ import Profile from './profile';
 class Shops extends Component {
         constructor(props) {
                 super(props);
-                this.state = {  }
+                this.state = { 
+                        
+                 }
+                 this.callMaps = this.callMaps.bind(this);
         }
+
+        componentDidMount(){
+         
+                fetch("/users",{
+                        headers: {
+                          'Accept': 'application/json',
+                          'Content-Type': 'application/json',
+                          'token' : this.props.accessToken
+                        },
+                        method: "GET"
+                    })
+                      .then(blob => blob.json())
+                      .then(data => {
+                                this.setState({userInfo : data});
+                               
+                                this.callMaps();
+                      });
+        }
+
+        callMaps(e){
+                
+                var targetUrl = '/shops?lat=33.56835840000001&lng=-7.6283904';
+                fetch(targetUrl,{
+                        headers: { 'token' : this.props.accessToken}
+                        })
+                        .then(blob => blob.json())
+                        .then(data => {
+                               
+                                alert(data.nextPageToken);
+                        });
+                
+        }
+
+
         render() {  
                 return ( 
                         <BrowserRouter>

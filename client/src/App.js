@@ -9,7 +9,7 @@ class App extends Component {
     constructor(props) {
       super(props);
       this.state = { 
-        accessToken : window.localStorage.getItem('accessToken')
+        accessToken : window.localStorage.getItem('accessToken') ? window.localStorage.getItem('accessToken') : sessionStorage.accessToken
       }
       this.authentication = this.authentication.bind(this);
     }
@@ -20,9 +20,10 @@ class App extends Component {
    
   
     render() {
+      
       const accessToken = this.state.accessToken;
       if(accessToken){return (
-          <Shops />
+          <Shops accessToken={this.state.accessToken}/>
         );}
       else{
         return(
