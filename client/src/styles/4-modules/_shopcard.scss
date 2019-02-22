@@ -5,20 +5,30 @@
     height: 120vw;
     margin-bottom: 20px;
     border-bottom: $lightGrey 1px solid;
+    div,span{
+        display: block;
+    }
     .shop--info{
         position: relative;
         width: 100%;
+        
         .shop--info-name{
-            width: 80px;
-            height: 25px;
+            font-family: Futura LT Heavy;
         }
         .shop--info-adresse{
-            width: 200px;
-            height: 15px;
+            font-family: Futura LT;
+            font-size: 0.8em;
+            margin-top: 5px;
         }
         .shop--info-image{
-            width: 90vw;
-            height: 90vw;
+            img{
+                border-radius: 6px;
+                width: 90vw;
+                height: 90vw; 
+                margin: 10px 0 10px 0;
+                object-fit: cover;
+            }
+            
         }
     }
                 
@@ -26,22 +36,42 @@
         position: relative;
         width: 100%;
         .shop--controles-distance{
-            width: 40px;
-            height: 25px;
+            
             position: absolute;
             left: 0;
+
         }
         .shop--controles-dislike{
-            width: 25px;
+            width: 29px;
             height: 25px;
             position: absolute;
-            right: 30px;
+            right: 40px;
+            
         }
         .shop--controles-like{
-            width: 25px;
+            width: 29px;
             height: 25px;
             position: absolute;
             right: 0;
+            
+        }
+    }
+}
+
+.shop:not(.shop--placeholder){
+    .shop--controles{
+        
+        .shop--controles-dislike{
+            
+            background-image: url('../icons/dislike.png');
+            background-size: 25px;
+            background-repeat: no-repeat;
+        }
+        .shop--controles-like{
+            
+            background-image: url('../icons/like.png');
+            background-size: cover;
+            background-repeat: no-repeat;
         }
     }
 }
@@ -66,7 +96,8 @@
             background-color: $lightGrey;
         }
         .shop--info-image{
-            
+            width: 90vw;
+            height: 90vw; 
             background-color: $lightGrey;
         }
     }
@@ -78,13 +109,11 @@
             background-color: $lightGrey;
         }
         .shop--controles-dislike{
-            width: 25px;
-            height: 25px;
+            
             background-color: $lightGrey;
         }
         .shop--controles-like{
-            width: 25px;
-            height: 25px;
+            
             background-color: $lightGrey;
         }
     }

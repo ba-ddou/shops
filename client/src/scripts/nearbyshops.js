@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import shopPhotoPlaceholder from './graphics/logo.png';
 
 
 const NearbyShopsPlaceholder = () => {
@@ -41,6 +42,33 @@ const NearbyShopsPlaceholder = () => {
      );
 }
  
+const NearbyShopsList = (props) =>{
+    var shopsList = props.shopsList;
+    var photoUrlPrefix = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
+    var placesApiKey = '&key=AIzaSyA8C43MGetCMCiAAyK33mUegbeAHrzXc4w';
+    var listItems = shopsList.map((shop) =>
+                                    (<div id={shop.shopId} className="shop" key={shop.shopId}>
+                                        <div className="shop--info">
+                                            <span className="shop--info-name">{shop.name}</span>
+                                            <span className="shop--info-adresse">{shop.adresse}</span>
+                                            <div className="shop--info-image">
+                                                <img src={shop.photoRef ? photoUrlPrefix+shop.photoRef+placesApiKey : shopPhotoPlaceholder} />
+                                                
+                                            </div>
+                                        </div>
+                                        <div className="shop--controles">
+                                            <span className="shop--controles-distance"></span>
+                                            <div className="shop--controles-dislike"></div>
+                                            <div className="shop--controles-like"></div>
+                                        </div>
+                                    </div>)
+                                );
+    return(
+        <React.Fragment>
+            {listItems}
+        </React.Fragment>
+    )
+}
 
 
 class NearbyShops extends Component {
@@ -51,10 +79,11 @@ class NearbyShops extends Component {
     }
         
     render() { 
-        
+        var shopsList = this.props.shopsList;
+        var shopsBody = shopsList.length > 0 ? <NearbyShopsList shopsList={shopsList}/> : <NearbyShopsPlaceholder />;
         return ( 
             <div className="shops--container">
-                <NearbyShopsPlaceholder />
+                {shopsBody}
             </div>
 
          );

@@ -9,7 +9,7 @@ class Shops extends Component {
         constructor(props) {
                 super(props);
                 this.state = { 
-                        
+                        shopsList : []
                  }
                  this.callMaps = this.callMaps.bind(this);
         }
@@ -27,21 +27,27 @@ class Shops extends Component {
                       .then(blob => blob.json())
                       .then(data => {
                                 this.setState({userInfo : data});
-                               
-                                this.callMaps();
+                                navigator.geolocation.getCurrentPosition((e)=>{
+                                        
+                                        this.callMaps('/shops?lat='+e.coords.latitude+'&lng='+e.coords.longitude);
+                                });
+                                
                       });
         }
 
-        callMaps(e){
-                
-                var targetUrl = '/shops?lat=33.56835840000001&lng=-7.6283904';
+        callMaps(targetUrl){
+
                 fetch(targetUrl,{
-                        headers: { 'token' : this.props.accessToken}
+                        headers: { 'token' : this.props.accessToken }
                         })
                         .then(blob => blob.json())
                         .then(data => {
-                               
-                                alert(data.nextPageToken);
+                               console.log('200');
+                                this.setState({nextPageToken : data.nextPageToken});
+                                this.setState(prevState=>{
+                                     Array.prototype.push.apply(prevState.shopsList,data.shopsList);
+                                     return {shopsList : prevState.shopsList };
+                                        });
                         });
                 
         }
@@ -52,7 +58,7 @@ class Shops extends Component {
                         <BrowserRouter>
                                 <div id="shops">
                                         <Route component={Navigation}/>
-                                        <Route exact path='/' component={NearbyShops}/>
+                                        <Route exact path='/' render={(props) => <NearbyShops shopsList={this.state.shopsList} />}/>
                                         <Route path='/favoriteshops' component={FavoriteShops}/>
                                         <Route path='/profile' component={Profile}/>
                                 </div>
