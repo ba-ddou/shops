@@ -12,6 +12,7 @@ class Shops extends Component {
                         shopsList : []
                  }
                  this.callMaps = this.callMaps.bind(this);
+                 this.likeShop = this.likeShop.bind(this);
         }
 
         componentDidMount(){
@@ -29,6 +30,12 @@ class Shops extends Component {
                                 this.setState({userInfo : data});
                                 navigator.geolocation.getCurrentPosition((e)=>{
                                         
+                                        this.setState({coords:{
+                                                lat : e.coords.latitude ,
+                                                lng : e.coords.longitude
+                                        }});
+                                        
+
                                         this.callMaps('/shops?lat='+e.coords.latitude+'&lng='+e.coords.longitude);
                                 });
                                 
@@ -42,12 +49,35 @@ class Shops extends Component {
                         })
                         .then(blob => blob.json())
                         .then(data => {
-                               console.log('200');
+                                
                                 this.setState({nextPageToken : data.nextPageToken});
                                 this.setState(prevState=>{
                                      Array.prototype.push.apply(prevState.shopsList,data.shopsList);
                                      return {shopsList : prevState.shopsList };
                                         });
+                                
+                        });
+                
+        }
+
+        likeShop(shopId){
+                var likedShop = this.state.shopsList.find(shop=>shop.shopId==shopId);
+                
+                var targetUrl = "/impressions"
+                fetch(targetUrl,{
+                        headers: {
+                          'Accept': 'application/json',
+                          'Content-Type': 'application/json',
+                          'token' : this.props.accessToken
+                        },
+                        method: "POST",
+                        body : JSON.stringify({impression : "liked",
+                                                shopObject: likedShop}) 
+                    })
+                        .then(blob => blob.json())
+                        .then(data => {
+                                
+                                
                         });
                 
         }
@@ -58,8 +88,8 @@ class Shops extends Component {
                         <BrowserRouter>
                                 <div id="shops">
                                         <Route component={Navigation}/>
-                                        <Route exact path='/' render={(props) => <NearbyShops shopsList={this.state.shopsList} />}/>
-                                        <Route path='/favoriteshops' component={FavoriteShops}/>
+                                        <Route exact path='/' render={(props) => <NearbyShops shopsList={this.state.shopsList} coords={this.state.coords} likeShop={this.likeShop}/> } />
+                                        <Route path='/favoriteshops'render={(props) => <FavoriteShops favoriteShopsList={this.state.userInfo.liked}/> } />
                                         <Route path='/profile' component={Profile}/>
                                 </div>
                         </BrowserRouter>

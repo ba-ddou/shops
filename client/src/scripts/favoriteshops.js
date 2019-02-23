@@ -1,12 +1,31 @@
 import React, { Component } from 'react';
 
+const FavoriteShopsList = () => {
+    
+    return(
+        ""
+    )
+}
+
+ 
 
 
 class FavoriteShops extends Component {
-    state = {  }
+    constructor(props) {
+        super(props);
+    }
+   
     render() { 
+
+        var favoriteshopsList = this.props.favoriteShopsList;
+        
+        var shopsBody = "";
+        // favoriteshopsList && favoriteshopsList.length > 0 ? <FavoriteShopsList favoriteShopsList={favoriteShopsList} /> : "";
         return ( 
-            <div></div>
+            <div className="shops--container">
+                {shopsBody}
+            </div>
+
          );
     }
 }

@@ -5,12 +5,14 @@
     height: 120vw;
     margin-bottom: 20px;
     border-bottom: $lightGrey 1px solid;
+    color: $darkColor;
     div,span{
         display: block;
     }
     .shop--info{
         position: relative;
         width: 100%;
+        
         
         .shop--info-name{
             font-family: Futura LT Heavy;
@@ -21,11 +23,46 @@
             margin-top: 5px;
         }
         .shop--info-image{
+            margin: 10px 0 10px 0;
+            .shopThumbnail--placeholder{
+                position: relative;
+                border-radius: 6px;
+                width: 90vw;
+                height: 90vw; 
+                background-color: $brandColor;
+                >div{
+                    position: absolute;
+                    text-align: center;
+                    width: 200px;
+                    height: 65px;
+                    top: 50%;
+                    left: 50%;
+                    @include transform(translate(-50%,-50%));
+                    .shopThumbnail--placeholder-icon{
+                        position: absolute;
+                        left: 50%;
+                        @include transform(translateX(-50%));
+                        width: 65px;
+                        height: 40px;
+                        background-image: url('../scripts/graphics/whiteIcon.png');
+                        background-size: cover;
+                    }
+                    span{
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        @include transform(translateX(-50%));
+                        color: white;
+                        white-space: nowrap;
+                        font-family: Futura LT;
+                        
+                    }
+                }
+            }
             img{
                 border-radius: 6px;
                 width: 90vw;
                 height: 90vw; 
-                margin: 10px 0 10px 0;
                 object-fit: cover;
             }
             
@@ -36,7 +73,7 @@
         position: relative;
         width: 100%;
         .shop--controles-distance{
-            
+            font-family: Futura LT;
             position: absolute;
             left: 0;
 
@@ -67,9 +104,14 @@
             background-size: 25px;
             background-repeat: no-repeat;
         }
-        .shop--controles-like{
+        .shop--controles-like:not(.shop--controles-like-active){
             
             background-image: url('../icons/like.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .shop--controles-like-active{
+            background-image: url('../icons/likeFocus.png');
             background-size: cover;
             background-repeat: no-repeat;
         }
