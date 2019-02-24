@@ -6,6 +6,8 @@
     margin-bottom: 20px;
     border-bottom: $lightGrey 1px solid;
     color: $darkColor;
+    opacity: 1;
+    transition: height 800ms ease-in-out,opacity 600ms ease-in-out;
     div,span{
         display: block;
     }
@@ -95,12 +97,18 @@
     }
 }
 
+
 .shop:not(.shop--placeholder){
     .shop--controles{
         
         .shop--controles-dislike{
             
             background-image: url('../icons/dislike.png');
+            background-size: 25px;
+            background-repeat: no-repeat;
+        }
+        .shop--controles-dislike-active{
+            background-image: url('../icons/dislikeFocus.png');
             background-size: 25px;
             background-repeat: no-repeat;
         }
@@ -160,4 +168,9 @@
         }
     }
         
+}
+
+.shop.shop--remove{
+    opacity: 0;
+    height: 0;
 }

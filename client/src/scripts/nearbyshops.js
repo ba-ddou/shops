@@ -73,11 +73,11 @@ const ShopThumbnail = (props) => {
 
  
 const NearbyShopsList = (props) =>{
-    var shopsList = props.shopsList;
-    var likeShop = props.likeShop;
+    var shopsList = props.shopsList.filter(shop=>!shop.liked);
+    var impressionFeedback = props.impressionFeedback;
     
     var listItems = shopsList.map((shop) =>
-                                    (<div id={shop.shopId} className="shop" key={shop.shopId}>
+                                    (<div id={shop.shopId} className={(props.animatedDislikeShopId && props.animatedDislikeShopId == shop.shopId) || (props.animatedLikeShopId && props.animatedLikeShopId == shop.shopId) ? "shop shop--remove" : "shop"} key={shop.shopId}>
                                         <div className="shop--info">
                                             <span className="shop--info-name">{shop.name}</span>
                                             <span className="shop--info-adresse">{shop.adresse}</span>
@@ -88,8 +88,8 @@ const NearbyShopsList = (props) =>{
                                         </div>
                                         <div className="shop--controles">
                                             <span className="shop--controles-distance">{shop.distance.substring(0,4) +"km"}</span>
-                                            <div className="shop--controles-dislike"></div>
-                                            <div className={props.animatedLikeShopId && props.animatedLikeShopId == shop.shopId ? "shop--controles-like shop--controles-like-active" : "shop--controles-like"} onClick={likeShop.bind(0,shop.shopId)}></div>
+                                            <div className={props.animatedDislikeShopId && props.animatedDislikeShopId == shop.shopId ? "shop--controles-dislike shop--controles-dislike-active" : "shop--controles-dislike"} onClick={impressionFeedback.bind(0,shop.shopId,"disliked")}></div>
+                                            <div className={props.animatedLikeShopId && props.animatedLikeShopId == shop.shopId ? "shop--controles-like shop--controles-like-active" : "shop--controles-like"} onClick={impressionFeedback.bind(0,shop.shopId,"liked")}></div>
                                         </div>
                                     </div>)
                                 );
@@ -106,14 +106,17 @@ class NearbyShops extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            animatedLikeShopId : false
+            animatedLikeShopId : false,
+            animatedDislikeShopId : false
+
          }
-        this.likeShopFeedback = this.likeShopFeedback.bind(this);
+        this.impressionFeedback = this.impressionFeedback.bind(this);
     }
 
-    likeShopFeedback(shopId){
-        this.setState({animatedLikeShopId : shopId});
-        this.props.likeShop(shopId);
+    impressionFeedback(shopId,impression){
+        if(impression == "liked") this.setState({animatedLikeShopId : shopId});
+        else this.setState({animatedDislikeShopId : shopId});
+        this.props.postImpression(shopId,impression);
     }
         
     render() { 
@@ -121,7 +124,7 @@ class NearbyShops extends Component {
         var shopsList = this.props.shopsList;
         
        
-        var shopsBody = shopsList.length > 0 ? <NearbyShopsList shopsList={shopsList} likeShop={this.likeShopFeedback} animatedLikeShopId={this.state.animatedLikeShopId}/> : <NearbyShopsPlaceholder />;
+        var shopsBody = shopsList.length > 0 ? <NearbyShopsList shopsList={shopsList} impressionFeedback={this.impressionFeedback} animatedLikeShopId={this.state.animatedLikeShopId} animatedDislikeShopId={this.state.animatedDislikeShopId}/> : <NearbyShopsPlaceholder />;
         return ( 
             <div className="shops--container">
                 {shopsBody}
