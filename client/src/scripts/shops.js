@@ -38,6 +38,7 @@ class Shops extends Component {
                  this.callMaps = this.callMaps.bind(this);
                  this.postImpression = this.postImpression.bind(this);
                  this.removeNotification = this.removeNotification.bind(this);
+                 this.unlike = this.unlike.bind(this);
         }
 
         componentDidMount(){
@@ -141,6 +142,33 @@ class Shops extends Component {
                 
         }
 
+        unlike(shopId){
+                var targetUrl = "/impressions"
+                fetch(targetUrl,{
+                        headers: {
+                          'Accept': 'application/json',
+                          'Content-Type': 'application/json',
+                          'token' : this.props.accessToken
+                        },
+                        method: "DELETE",
+                        body : JSON.stringify({impression: "liked",
+                                               shopId: shopId}) 
+                    })
+                        .then(blob => blob.json())
+                        .then(data => {
+                                if(!data.Error){
+                                        this.setState(prevState=>{
+                                                var shopObject = prevState.shopsList.find(shop=>shop.shopId==shopId);
+                                                shopObject.liked = false;
+                                                prevState.userInfo.liked = prevState.userInfo.liked.filter(shop=>shop.shopId!=shopId);
+                                                
+                                                return {userInfo : prevState.userInfo ,shopsList : prevState.shopsList,notification : {text : "1 shop removed from Favorites",type: "orange"}};
+                                        });
+                                        
+                                }
+                        });
+        }
+
         removeNotification(){
                 setTimeout(()=>{
                         this.setState({notification :false})
@@ -170,10 +198,10 @@ class Shops extends Component {
                 return ( 
                         <BrowserRouter>
                                 <div id="shops">
-                                        <Route component={Navigation}/>
+                                        <Route render={(props)=><Navigation pathname={props.location.pathname} data={profileData}  logout={this.props.logout}/> }/>
                                         <Route exact path='/' render={(props) => <NearbyShops shopsList={this.state.shopsList} coords={this.state.coords} postImpression={this.postImpression} /> } />
-                                        <Route path='/favoriteshops'render={(props) => <FavoriteShops favoriteShopsList={ this.state.userInfo ? this.state.userInfo.liked : false}/> } />
-                                        <Route path='/profile' render={(props)=><Profile data={profileData}  logout={this.props.logout}/>}/>
+                                        <Route path='/favoriteshops'render={(props) => <FavoriteShops favoriteShopsList={ this.state.userInfo ? this.state.userInfo.liked : false} unlike={this.unlike} /> } />
+                                        <Route path='/profile' render={(props)=><Profile data={profileData}  logout={this.props.logout} />}/>
                                         {notification}
                                         
                                 </div>

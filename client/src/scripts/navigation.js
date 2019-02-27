@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link, NavLink} from 'react-router-dom';
-
+import Profile from './profile';
 
 
 
@@ -27,6 +27,7 @@ class WebNav extends Component {
                     </Link>
                 </div>
                 <div id="webNav--logo"></div>
+                <Profile data={this.props.data}  logout={this.props.logout} />
             </div>
          );
     }
@@ -85,11 +86,11 @@ class Navigation extends Component {
         
 
     render() { 
-        var pathname = this.props.location.pathname.replace(/^\/+|\/+$/g,'');
+        var pathname = this.props.pathname.replace(/^\/+|\/+$/g,'');
         pathname = pathname === '' ? 'Nearby Shops' : pathname;
         pathname = pathname === 'favoriteshops' ? 'Favorite Shops' : pathname;
         pathname = pathname === 'profile' ? 'Profile' : pathname;
-        const nav = this.state.device==='mobile' ? <MobileNav pathname={pathname} /> : <WebNav pathname={pathname} />;
+        const nav = this.state.device==='mobile' ? <MobileNav pathname={pathname} /> : <WebNav pathname={pathname} data={this.props.data}  logout={this.props.logout}/>;
         
         return ( 
             <React.Fragment>

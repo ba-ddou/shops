@@ -3,7 +3,12 @@
     position: relative;
     padding-top: 120px;
     font-family: Futura LT;
-
+    @media screen and (min-width: 480px){
+        padding-top: 0;
+        width: 200px;
+        position: absolute;
+        right: 50px;
+    }
     div,span{
         display: block;
     }
@@ -16,6 +21,38 @@
         position: absolute;
         left: 50%;
         @include transform(translateX(-50%));
+        @media screen and (min-width: 480px){
+            width: 30px;
+            height: 30px;
+            left: unset;
+            right: 5px;
+            @include transform(translateX(0));
+            @include transform(translateY(10px));
+            cursor: pointer;
+
+        }
+
+    }
+    @media screen and (min-width: 480px){
+        #profile--avatar:hover+#profile--body{
+            display: block !important;
+            opacity: 1 !important;
+        }
+        
+
+    }
+    #profile--body{
+        @media screen and (min-width: 480px){
+            width: 200px;
+            height: 150px;
+            background-color: white;
+            border-radius: 6px;
+            margin-top: 60px;
+            box-shadow: rgba(0,0,0,0.3) 0 0 6px ;
+            display: none;
+            opacity: 0;
+            transition: opacity 300ms ease-in-out;
+        }
     }
     #profile--userInfo{
         position: absolute;
@@ -23,8 +60,14 @@
         left: 50%;
         text-align: center;
         @include transform(translateX(-50%));
+        @media screen and (min-width: 480px){
+            top: 80px;
+        }
         .profile--userInfo-info{
-            
+            @media screen and (min-width: 480px){
+                font-size: 0.8em;
+                white-space: nowrap;
+            }
             .profile--userInfo-name{
                 font-family: Futura LT Heavy;
             }
@@ -37,6 +80,11 @@
             margin-top: 30px;
             position: relative;
             width: 50vw;
+            @media screen and (min-width: 480px){
+                width: 100%;
+                margin-top: 10px;
+                font-size: 0.8em;
+            }
             span{
                 margin-top: 5px;
             }
@@ -48,6 +96,7 @@
                 position: absolute;
                 right: 0;
             }
+            
 
         }
     }
@@ -56,7 +105,16 @@
         height: 50px;
         position: absolute;
         top: 400px;
-        box-shadow: rgba(0,0,0,0.3) 0 0 6px ;
+        box-shadow: rgba(0,0,0,0.3) 0 0 6px;
+        @media screen and (min-width: 480px){
+            top: 170px;
+            width: 100%;
+            height: 40px;
+            box-shadow: unset;
+            border-top: $lightGrey 1px solid;
+            cursor: pointer;
+            border-radius: 0 0 6px 6px;
+        }
 
         .profile--logoutButton-icon{
             position: absolute;
@@ -67,6 +125,10 @@
             left: 30px;
             background-image: url('../icons/logout.png');
             background-size: cover;
+            @media screen and (min-width: 480px){
+                height: 18px;
+                width: 18px;
+            }
         }
 
         .profile--logoutButton-text{
@@ -76,4 +138,18 @@
             left: 100px;
         }
     }
+    @media screen and (min-width: 480px){
+        #profile--logoutButton:hover{
+            box-shadow: rgba(0,0,0,0.3) 0 0 6px;
+        }
+    }
+}
+@media screen and (min-width: 480px){
+    #profile:hover{
+        #profile--body{
+            display: block !important;
+            opacity: 1 !important;
+        }
+    }
+        
 }

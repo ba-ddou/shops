@@ -88,14 +88,15 @@ const NearbyShopsList = (props) =>{
                                         </div>
                                         <div className="shop--controles">
                                             <span className="shop--controles-distance">{shop.distance.substring(0,4) +"km"}</span>
-                                            <div className={props.animatedDislikeShopId && props.animatedDislikeShopId == shop.shopId ? "shop--controles-dislike shop--controles-dislike-active" : "shop--controles-dislike"} onClick={impressionFeedback.bind(0,shop.shopId,"disliked")}></div>
-                                            <div className={props.animatedLikeShopId && props.animatedLikeShopId == shop.shopId ? "shop--controles-like shop--controles-like-active" : "shop--controles-like"} onClick={impressionFeedback.bind(0,shop.shopId,"liked")}></div>
+                                            <div className={props.animatedDislikeShopId && props.animatedDislikeShopId.indexOf(shop.shopId)>-1? "shop--controles-dislike shop--controles-dislike-active" : "shop--controles-dislike"} onClick={impressionFeedback.bind(0,shop.shopId,"disliked")}></div>
+                                            <div className={props.animatedLikeShopId && props.animatedLikeShopId.indexOf(shop.shopId)>-1 ? "shop--controles-like shop--controles-like-active" : "shop--controles-like"} onClick={impressionFeedback.bind(0,shop.shopId,"liked")}></div>
                                         </div>
                                     </div>)
                                 );
     return(
         <React.Fragment>
             {listItems}
+            <Preloader />
         </React.Fragment>
     )
 }

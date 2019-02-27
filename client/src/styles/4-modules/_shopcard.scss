@@ -171,7 +171,7 @@
                 background-size: 20px;
             }
         }
-        .shop--controles-dislike-active,.shop--controles-dislike:hover{
+        .shop--controles-dislike-active{
             background-image: url('../icons/dislikeFocus.png');
             background-size: 25px;
             background-repeat: no-repeat;
@@ -179,13 +179,13 @@
                 background-size: 20px;
             }
         }
-        .shop--controles-like:not(.shop--controles-like-active){
+        .shop--controles-like{
             
             background-image: url('../icons/like.png');
             background-size: cover;
             background-repeat: no-repeat;
         }
-        .shop--controles-like-active,.shop--controles-like:hover{
+        .shop--controles-like-active{
             background-image: url('../icons/likeFocus.png');
             background-size: cover;
             background-repeat: no-repeat;

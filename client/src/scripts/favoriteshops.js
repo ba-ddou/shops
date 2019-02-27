@@ -26,9 +26,10 @@ const ShopThumbnail = (props) => {
 
 const FavoriteShopsList = (props) => {
     var favoriteShopsList = props.favoriteShopsList;
+    var unlikeFeedback = props.unlikeFeedback;
 
     var listItems = favoriteShopsList.map((shop) =>
-                                    (<div id={shop.shopId} className="shop" key={shop.shopId}>
+                                    (<div id={shop.shopId} className={(props.animatedUnlikeShopId.length > 0 && props.animatedUnlikeShopId.indexOf(shop.shopId) >-1) ? "shop shop--remove" : "shop"} key={shop.shopId}>
                                         <div className="shop--info">
                                             <span className="shop--info-name">{shop.name}</span>
                                             <span className="shop--info-adresse">{shop.adresse}</span>
@@ -39,8 +40,9 @@ const FavoriteShopsList = (props) => {
                                         </div>
                                         <div className="shop--controles">
                                             
-                                            <div className="shop--controles-dislike"></div>
-                                            <div className={"shop--controles-like shop--controles-like-active"} ></div>
+                                            {/* <div className="shop--controles-dislike"></div> */}
+                
+                                            <div className={props.animatedUnlikeShopId && props.animatedUnlikeShopId.indexOf(shop.shopId)>-1 ? "shop--controles-like" : "shop--controles-like shop--controles-like-active"} onClick={unlikeFeedback.bind(0,shop.shopId)} ></div>
                                         </div>
                                     </div>)
                                 );
@@ -57,13 +59,26 @@ const FavoriteShopsList = (props) => {
 class FavoriteShops extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            animatedUnlikeShopId : []
+        }
+        this.unlikeFeedback = this.unlikeFeedback.bind(this);
+    }
+
+    unlikeFeedback(shopId){
+        this.setState(prevState=>{ 
+            prevState.animatedUnlikeShopId.push(shopId);
+            return {animatedUnlikeShopId : prevState.animatedUnlikeShopId};
+       });
+        this.props.unlike(shopId);
     }
    
     render() { 
 
         var shopsList = this.props.favoriteShopsList;
         
-        var shopsBody = shopsList && shopsList.length > 0 ? <FavoriteShopsList favoriteShopsList={shopsList} /> : "";
+        
+        var shopsBody = shopsList && shopsList.length > 0 ? <FavoriteShopsList favoriteShopsList={shopsList}  unlikeFeedback={this.unlikeFeedback} animatedUnlikeShopId={this.state.animatedUnlikeShopId}/> : "";
         return ( 
             <div className="shops--container">
                 {shopsBody}
