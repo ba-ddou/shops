@@ -1,0 +1,79 @@
+#profile{
+    width: 100vw;
+    position: relative;
+    padding-top: 120px;
+    font-family: Futura LT;
+
+    div,span{
+        display: block;
+    }
+
+    #profile--avatar{
+        width: 100px;
+        height: 100px;
+        background-image: url('../scripts/graphics/user.svg');
+        background-size: cover;
+        position: absolute;
+        left: 50%;
+        @include transform(translateX(-50%));
+    }
+    #profile--userInfo{
+        position: absolute;
+        top: 240px;
+        left: 50%;
+        text-align: center;
+        @include transform(translateX(-50%));
+        .profile--userInfo-info{
+            
+            .profile--userInfo-name{
+                font-family: Futura LT Heavy;
+            }
+            .profile--userInfo-email{
+                
+            }
+        }
+        .profile--userInfo-impressions{
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            width: 50vw;
+            span{
+                margin-top: 5px;
+            }
+            .profile--userInfo-liked{
+                position: absolute;
+                left: 0;
+            }
+            .profile--userInfo-disliked{
+                position: absolute;
+                right: 0;
+            }
+
+        }
+    }
+    #profile--logoutButton{
+        width: 100vw;
+        height: 50px;
+        position: absolute;
+        top: 400px;
+        box-shadow: rgba(0,0,0,0.3) 0 0 6px ;
+
+        .profile--logoutButton-icon{
+            position: absolute;
+            height: 25px;
+            width: 25px;
+            top: 50%;
+            @include transform(translateY(-50%));
+            left: 30px;
+            background-image: url('../icons/logout.png');
+            background-size: cover;
+        }
+
+        .profile--logoutButton-text{
+            position: absolute;
+            top: 50%;
+            @include transform(translateY(-50%));
+            left: 100px;
+        }
+    }
+}

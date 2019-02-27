@@ -12,18 +12,24 @@ class App extends Component {
         accessToken : window.localStorage.getItem('accessToken') ? window.localStorage.getItem('accessToken') : sessionStorage.accessToken
       }
       this.authentication = this.authentication.bind(this);
+      this.logout = this.logout.bind(this);
     }
     
     authentication(token){
       this.setState({accessToken : token});
     }
    
+    logout(){
+      window.localStorage.removeItem('accessToken');
+      sessionStorage.accessToken = false;
+      this.setState({accessToken : false});
+    }
   
     render() {
       
       const accessToken = this.state.accessToken;
       if(accessToken){return (
-          <Shops accessToken={this.state.accessToken}/>
+          <Shops accessToken={this.state.accessToken} logout={this.logout}/>
         );}
       else{
         return(

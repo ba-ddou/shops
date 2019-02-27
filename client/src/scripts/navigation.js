@@ -5,10 +5,29 @@ import {Link, NavLink} from 'react-router-dom';
 
 
 class WebNav extends Component {
-    state = {  }
+    constructor(props) {
+        super(props);
+    }
     render() { 
+        var pathname = this.props.pathname;
         return ( 
-            <div>WebNav</div>
+            <div id="webNav">
+                <div id="webNav--links">
+                    <Link to="/">
+                        <div id="webNav--links-nearbyshops" className={pathname === 'Nearby Shops' ? 'webNav--link webNav--link-active' : 'webNav--link' }>
+                            <span className="webNav--links-icon webNav--links-nearbyshopsIcon"></span>
+                            <span className="webNav--links-title">Nearby Shops</span>
+                        </div>
+                    </Link>
+                    <Link to="/favoriteshops">
+                        <div id="webNav--links-favoriteshops" className={pathname === 'Favorite Shops' ? 'webNav--link webNav--link-active' : 'webNav--link' }>
+                            <span className="webNav--links-icon webNav--links-favoriteshopsIcon"></span>
+                            <span className="webNav--links-title">Favorite Shops</span>
+                        </div>              
+                    </Link>
+                </div>
+                <div id="webNav--logo"></div>
+            </div>
          );
     }
 }

@@ -1,0 +1,47 @@
+@keyframes lift{
+    0% {bottom: 0;}
+    50% {bottom: 60px;}
+    100% {bottom: 60px;}
+  }
+
+
+
+.notification{
+    position: fixed;
+    width: 240px;
+    height: 30px;
+    left: 50%;
+    @include transform(translateX(-50%));
+    border-radius: 30px;
+    box-shadow: rgba(0,0,0,0.3) 0 4px 12px ;
+    
+
+    
+    span{
+        color: white;
+        font-family: Futura LT;
+        font-size: 0.8em;
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include transform(translate(-50%,-50%));
+        white-space: nowrap;
+    }
+}
+.notification--orange,.notification--dark{
+    opacity: 0.9;
+    animation-name: lift;
+    animation-duration: 1.6s;
+    animation-direction: alternate;
+    animation-iteration-count: 2;
+    animation-timing-function: ease-in-out;
+}
+.notification.notification--orange{
+    background-color: $brandColor;
+      
+}
+.notification.notification--dark{
+    background-color: $darkColor;
+     
+}

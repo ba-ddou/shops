@@ -82,3 +82,91 @@
 
     }
 }
+
+#webNav{
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    box-shadow: rgba(0,0,0,0.3) 0 0 6px ;
+    background-color: white;
+    #webNav--links{
+        font-family: Futura LT Heavy;
+        color: $darkColor;
+        font-size: 0.8em;
+        .webNav--link{
+            position: absolute;
+            top: 50%;
+            @include transform(translateY(-50%));
+        }
+        .webNav--link.webNav--link-active{
+            color: $brandColor;
+            
+        }
+        .webNav--links-icon{
+            display: inline-block;
+            height: 18px;
+            
+            background-repeat: no-repeat;
+            background-size: cover;
+            object-fit: cover;
+        }
+        .webNav--links-title{
+            position: absolute;
+            top: 50%;
+            @include transform(translateY(-50%));
+            white-space: nowrap;
+            margin-left: 5px;
+        }
+        #webNav--links-nearbyshops{
+            left: 50px;
+            .webNav--links-nearbyshopsIcon{
+                background-image: url('../icons/nearby.png');
+                width: 18px;
+            }
+            
+        }
+        #webNav--links-nearbyshops.webNav--link-active{
+                
+            .webNav--links-nearbyshopsIcon{
+                background-image: url('../icons/nearbyFocus.png') ;
+                
+            }
+            
+        }
+
+            
+        #webNav--links-favoriteshops{
+            left: 200px;
+            .webNav--links-favoriteshopsIcon{
+                background-image: url('../icons/like.png');
+                width: 21px;
+            }
+            
+        }
+        #webNav--links-favoriteshops.webNav--link-active{
+                    
+            .webNav--links-favoriteshopsIcon{
+                background-image: url('../icons/likeFocus.png');
+                
+            }
+                    
+        }
+        
+        
+            
+        
+    }
+    #webNav--logo{
+        height: 30px;
+        width: 80px;
+        background-image: url('../scripts/graphics/logo.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include transform(translate(-50%,-50%));
+    }
+}

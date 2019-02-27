@@ -7,9 +7,25 @@
     border-bottom: $lightGrey 1px solid;
     color: $darkColor;
     opacity: 1;
-    transition: height 800ms ease-in-out,opacity 600ms ease-in-out;
+    transition: margin 500ms ease-in-out,height 500ms ease-in-out,opacity 300ms ease-in-out;
+    
+
+    
+
+    @media screen and (min-width: 480px){
+        width: 15vw;
+        height: 22vw;
+        border-bottom: none;
+        
+        margin: 20px;
+        transition: margin 500ms ease-in-out,width 500ms ease-in-out,opacity 300ms ease-in-out;
+        
+        border-radius: 4px;
+        
+    }
     div,span{
         display: block;
+       
     }
     .shop--info{
         position: relative;
@@ -18,11 +34,18 @@
         
         .shop--info-name{
             font-family: Futura LT Heavy;
+            @media screen and (min-width: 480px){
+                font-size: 0.8em;
+            }
         }
         .shop--info-adresse{
             font-family: Futura LT;
             font-size: 0.8em;
             margin-top: 5px;
+            @media screen and (min-width: 480px){
+                font-size: 0.6em;
+                height: 20px;
+            }
         }
         .shop--info-image{
             margin: 10px 0 10px 0;
@@ -32,6 +55,10 @@
                 width: 90vw;
                 height: 90vw; 
                 background-color: $brandColor;
+                @media screen and (min-width: 480px){
+                    width: 15vw;
+                    height: 15vw;
+                }
                 >div{
                     position: absolute;
                     text-align: center;
@@ -39,6 +66,10 @@
                     height: 65px;
                     top: 50%;
                     left: 50%;
+                    @media screen and (min-width: 480px){
+                        width: 100px;
+                        height: 32px;
+                    }
                     @include transform(translate(-50%,-50%));
                     .shopThumbnail--placeholder-icon{
                         position: absolute;
@@ -48,6 +79,10 @@
                         height: 40px;
                         background-image: url('../scripts/graphics/whiteIcon.png');
                         background-size: cover;
+                        @media screen and (min-width: 480px){
+                            width: 32px;
+                            height: 20px;
+                        }
                     }
                     span{
                         position: absolute;
@@ -57,6 +92,9 @@
                         color: white;
                         white-space: nowrap;
                         font-family: Futura LT;
+                        @media screen and (min-width: 480px){
+                            font-size: 0.6em;
+                        }
                         
                     }
                 }
@@ -66,6 +104,13 @@
                 width: 90vw;
                 height: 90vw; 
                 object-fit: cover;
+                @media screen and (min-width: 480px){
+                    width: 15vw;
+                    height: 15vw;
+                    
+                    
+                }
+                
             }
             
         }
@@ -78,6 +123,9 @@
             font-family: Futura LT;
             position: absolute;
             left: 0;
+            @media screen and (min-width: 480px){
+                font-size: 0.8em;
+            }
 
         }
         .shop--controles-dislike{
@@ -85,6 +133,11 @@
             height: 25px;
             position: absolute;
             right: 40px;
+            cursor: pointer;
+            @media screen and (min-width: 480px){
+                width: 20px;
+                height: 20px;
+            }
             
         }
         .shop--controles-like{
@@ -92,11 +145,19 @@
             height: 25px;
             position: absolute;
             right: 0;
+            cursor: pointer;
+            @media screen and (min-width: 480px){
+                width: 23px;
+                height: 20px;
+            }
             
         }
     }
 }
 
+.shop:hover{
+    // box-shadow: rgba(0,0,0,0.3) 0 0 6px ;
+}
 
 .shop:not(.shop--placeholder){
     .shop--controles{
@@ -106,11 +167,17 @@
             background-image: url('../icons/dislike.png');
             background-size: 25px;
             background-repeat: no-repeat;
+            @media screen and (min-width: 480px){
+                background-size: 20px;
+            }
         }
-        .shop--controles-dislike-active{
+        .shop--controles-dislike-active,.shop--controles-dislike:hover{
             background-image: url('../icons/dislikeFocus.png');
             background-size: 25px;
             background-repeat: no-repeat;
+            @media screen and (min-width: 480px){
+                background-size: 20px;
+            }
         }
         .shop--controles-like:not(.shop--controles-like-active){
             
@@ -118,7 +185,7 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
-        .shop--controles-like-active{
+        .shop--controles-like-active,.shop--controles-like:hover{
             background-image: url('../icons/likeFocus.png');
             background-size: cover;
             background-repeat: no-repeat;
@@ -133,22 +200,38 @@
         display: block;
         border-radius: 6px;
         margin-top: 5px;
+        @media screen and (min-width: 480px){
+            border-radius: 4px;
+        }
     }
+    
     .shop--info{
         .shop--info-name{
             width: 80px;
             height: 25px;
             background-color: $lightGrey;
+            @media screen and (min-width: 480px){
+                width: 40px;
+                height: 12px;
+            }
         }
         .shop--info-adresse{
             width: 200px;
             height: 15px;
             background-color: $lightGrey;
+            @media screen and (min-width: 480px){
+                width: 100px;
+                height: 8px;
+            }
         }
         .shop--info-image{
             width: 90vw;
             height: 90vw; 
             background-color: $lightGrey;
+            @media screen and (min-width: 480px){
+                width: 15vw;
+                height: 15vw;
+            }
         }
     }
                 
@@ -157,6 +240,10 @@
             width: 40px;
             height: 25px;
             background-color: $lightGrey;
+            @media screen and (min-width: 480px){
+                width: 30px;
+                height: 12px;
+            }
         }
         .shop--controles-dislike{
             
@@ -173,4 +260,13 @@
 .shop.shop--remove{
     opacity: 0;
     height: 0;
+    margin-bottom: 0;
+    
+    @media screen and (min-width: 480px){
+        opacity: 0;
+        height: 22vw;
+        width: 0;
+        margin: 20px 0 20px 0;
+        
+    }
 }

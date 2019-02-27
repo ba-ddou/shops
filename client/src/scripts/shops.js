@@ -5,14 +5,39 @@ import NearbyShops from './nearbyshops';
 import FavoriteShops from './favoriteshops';
 import Profile from './profile';
 
+
+class Notification extends Component {
+        constructor(props) {
+                super(props);
+        }
+        
+        componentDidMount(){
+                this.props.removeNotification();
+        }
+        render(){
+                var info = this.props.info;
+            return ( 
+                <div className={"notification notification--"+info.type}>
+                        <span>{info.text}</span>
+                </div>
+                 );    
+        }
+        
+}
+ 
+
+
+
 class Shops extends Component {
         constructor(props) {
                 super(props);
                 this.state = { 
-                        shopsList : []
+                        shopsList : [],
+                        notification : false
                  }
                  this.callMaps = this.callMaps.bind(this);
                  this.postImpression = this.postImpression.bind(this);
+                 this.removeNotification = this.removeNotification.bind(this);
         }
 
         componentDidMount(){
@@ -46,7 +71,7 @@ class Shops extends Component {
         callMaps(targetUrl){
                 
                 fetch(targetUrl,{
-                        headers: { 'token' : this.props.accessToken }
+                        headers: { 'token' : this.props.accessToken } //uhguihuih
                         })
                         .then(blob => blob.json())
                         .then(data => {
@@ -100,7 +125,7 @@ class Shops extends Component {
                                                 var shopObject = prevState.shopsList.find(shop=>shop.shopId==shopId);
                                                 prevState.userInfo.liked.push(shopObject);
                                                 shopObject.liked = true;
-                                                return {userInfo : prevState.userInfo ,shopsList : prevState.shopsList };
+                                                return {userInfo : prevState.userInfo ,shopsList : prevState.shopsList,notification : {text : "1 shop added to Favorites",type: "orange"}};
                                         });
                                         
                                 }else if(!data.Error && impression=="disliked"){
@@ -108,7 +133,7 @@ class Shops extends Component {
                                                 var shopsList = prevState.shopsList.filter(shop=>shop.shopId!=shopId);
                                                 prevState.userInfo.disliked.push({shopId : shopId,expires:0});
                                                         
-                                                return {userInfo : prevState.userInfo ,shopsList : shopsList };
+                                                return {userInfo : prevState.userInfo ,shopsList : shopsList, notification : {text : "1 shop Blocked",type: "dark"}};
                                         });
                                 }
                                 
@@ -116,17 +141,41 @@ class Shops extends Component {
                 
         }
 
-       
+        removeNotification(){
+                setTimeout(()=>{
+                        this.setState({notification :false})
+                },3000);
+                
+        }
+
+       logout(){
+
+       }
 
 
         render() {  
+                var notification = false;
+                var profileData ={};
+                if(this.state.userInfo){
+                        profileData={
+                                fullName : this.state.userInfo.fullName,
+                                email : this.state.userInfo.email,
+                                likedShopsCount : this.state.userInfo.liked.length,
+                                dislikedShopsCount: this.state.userInfo.disliked.length
+                        };
+                }
+                if(this.state.notification){
+                  notification = <Notification info={this.state.notification} removeNotification={this.removeNotification}/>
+                }
                 return ( 
                         <BrowserRouter>
                                 <div id="shops">
                                         <Route component={Navigation}/>
                                         <Route exact path='/' render={(props) => <NearbyShops shopsList={this.state.shopsList} coords={this.state.coords} postImpression={this.postImpression} /> } />
                                         <Route path='/favoriteshops'render={(props) => <FavoriteShops favoriteShopsList={ this.state.userInfo ? this.state.userInfo.liked : false}/> } />
-                                        <Route path='/profile' component={Profile}/>
+                                        <Route path='/profile' render={(props)=><Profile data={profileData}  logout={this.props.logout}/>}/>
+                                        {notification}
+                                        
                                 </div>
                         </BrowserRouter>
                 );

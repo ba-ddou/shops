@@ -22,7 +22,7 @@ const Preloader = () => {
 
 const NearbyShopsPlaceholder = () => {
 
-    const numbers = [1,2,3,4,5,6,7,8];
+    const numbers = [1,2,3,4,5,6,7,8,9,10,11,12];
     const listItems = numbers.map((number) =>
                                     <div className="shop shop--placeholder" key={number.toString()}>
                                         <div className="shop--info">
@@ -41,7 +41,7 @@ const NearbyShopsPlaceholder = () => {
     return ( 
         <React.Fragment>
             {listItems}
-            {Preloader}
+            <Preloader />
         </React.Fragment>
      );
 }
@@ -77,7 +77,7 @@ const NearbyShopsList = (props) =>{
     var impressionFeedback = props.impressionFeedback;
     
     var listItems = shopsList.map((shop) =>
-                                    (<div id={shop.shopId} className={(props.animatedDislikeShopId && props.animatedDislikeShopId == shop.shopId) || (props.animatedLikeShopId && props.animatedLikeShopId == shop.shopId) ? "shop shop--remove" : "shop"} key={shop.shopId}>
+                                    (<div id={shop.shopId} className={(props.animatedDislikeShopId.length > 0 && props.animatedDislikeShopId.indexOf(shop.shopId) >-1 ) || (props.animatedLikeShopId.length > 0 && props.animatedLikeShopId.indexOf(shop.shopId) > -1 ) ? "shop shop--remove" : "shop"} key={shop.shopId}>
                                         <div className="shop--info">
                                             <span className="shop--info-name">{shop.name}</span>
                                             <span className="shop--info-adresse">{shop.adresse}</span>
@@ -106,16 +106,22 @@ class NearbyShops extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            animatedLikeShopId : false,
-            animatedDislikeShopId : false
+            animatedLikeShopId : [],
+            animatedDislikeShopId : []
 
          }
         this.impressionFeedback = this.impressionFeedback.bind(this);
     }
 
     impressionFeedback(shopId,impression){
-        if(impression == "liked") this.setState({animatedLikeShopId : shopId});
-        else this.setState({animatedDislikeShopId : shopId});
+        if(impression == "liked") this.setState(prevState=>{ 
+                                                     prevState.animatedLikeShopId.push(shopId);
+                                                     return {animatedLikeShopId : prevState.animatedLikeShopId};
+                                                });
+        else this.setState(prevState=>{
+                                prevState.animatedDislikeShopId.push(shopId);
+                                return {animatedDislikeShopId : prevState.animatedDislikeShopId};
+                                        });
         this.props.postImpression(shopId,impression);
     }
         

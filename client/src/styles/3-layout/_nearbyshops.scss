@@ -11,10 +11,18 @@
       }
     .shops--container-preloader{
         position: absolute;
-        bottom: 60px;
+        bottom: 40px;
         left: 50%;
         @include transform(translateX(-50%));
       }
+    
+    @media screen and (min-width: 480px){
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 80vw;
+      
+    }
 
 }
 
