@@ -6,14 +6,18 @@
     @include transform(translateX(-50%));
     padding-bottom: 100px;
 
-    .spinner-color{
-        border-color: $brandColor;
-      }
-    .shops--container-preloader{
+    
+    #shops--container-preloader{
         position: absolute;
-        bottom: 40px;
+        bottom: 60px;
         left: 50%;
         @include transform(translateX(-50%));
+        @media screen and (min-width: 480px){
+          bottom: 40px;
+        }
+        .spinner-color{
+          border-color: $brandColor;
+        }
       }
     
     @media screen and (min-width: 480px){

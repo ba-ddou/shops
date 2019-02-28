@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import shopPhotoPlaceholder from './graphics/logo.png';
 
 const Preloader = () => {
-    return ( <div className="shops--container-preloader">
+    return ( <div id="shops--container-preloader">
     <div className="preloader-wrapper small active">
         <div className="spinner-layer spinner-color">
             <div className="circle-clipper left">

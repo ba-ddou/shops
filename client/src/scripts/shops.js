@@ -4,6 +4,7 @@ import Navigation from './navigation';
 import NearbyShops from './nearbyshops';
 import FavoriteShops from './favoriteshops';
 import Profile from './profile';
+import helpers from './helpers';
 
 class Popup extends Component {
         constructor(props) {
@@ -62,15 +63,23 @@ class Shops extends Component {
                 this.state = { 
                         shopsList : [],
                         notification : false,
-                        popup  : false
+                        popup  : false,
+                        mapsRequestInProgress : true
                  }
+                 
                  this.callMaps = this.callMaps.bind(this);
                  this.postImpression = this.postImpression.bind(this);
                  this.removeNotification = this.removeNotification.bind(this);
                  this.unlike = this.unlike.bind(this);
                  this.preLogout = this.preLogout.bind(this);
                  this.removePopup = this.removePopup.bind(this);
+                 this.paginationHandler = this.paginationHandler.bind(this);
+                 
+
+                 window.addEventListener('scroll',() => {this.paginationHandler()});
         }
+
+        
 
         componentDidMount(){
                 
@@ -107,7 +116,9 @@ class Shops extends Component {
                         })
                         .then(blob => blob.json())
                         .then(data => {
-                                this.setState({nextPageToken : data.nextPageToken});
+                                this.setState({nextPageToken : data.nextPageToken,
+                                               mapsRequestInProgress : false});
+                                
                                 if(this.state.userInfo.liked && this.state.userInfo.liked.length>0){
                                         var shopsList = this.signLikedShops(data.shopsList);
                                 }else{
@@ -220,6 +231,19 @@ class Shops extends Component {
                                 continue : this.props.logout
                         }
                 });
+        }
+
+        
+
+        paginationHandler(){
+                
+                var preloader = document.getElementById('shops--container-preloader');
+                if(preloader && helpers.elementInViewport(preloader)  && this.state.nextPageToken && !this.state.mapsRequestInProgress){
+                        
+                        this.setState({mapsRequestInProgress : true});
+                        this.callMaps('/shops?lat='+this.state.coords.lat+'&lng='+this.state.coords.lng+'&nextPageToken='+this.state.nextPageToken);
+                }
+                
         }
 
 
