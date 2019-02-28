@@ -5,6 +5,34 @@ import NearbyShops from './nearbyshops';
 import FavoriteShops from './favoriteshops';
 import Profile from './profile';
 
+class Popup extends Component {
+        constructor(props) {
+                super(props);
+                
+        }
+        render() { 
+                var handler = this.props.handler;
+                return ( 
+                        <div id="popup">
+                                <div id="popup--bg" onClick={handler.cancel}></div>
+                                <div className="popup--container">
+                                        <span className="popup--text">{handler.text}</span>
+                                        <div className="popup--buttons">
+                                                <div className="popup--button popup--button-cancel" onClick={handler.cancel}>
+                                                        <span>cancel</span>
+                                                </div>
+                                                <div className="popup--button popup--button-continue" onClick={handler.continue}>
+                                                        <span>continue</span>
+                                                </div>   
+                                        </div>
+                                             
+                                </div>
+                        </div>
+                 );
+        }
+}
+ 
+
 
 class Notification extends Component {
         constructor(props) {
@@ -33,12 +61,15 @@ class Shops extends Component {
                 super(props);
                 this.state = { 
                         shopsList : [],
-                        notification : false
+                        notification : false,
+                        popup  : false
                  }
                  this.callMaps = this.callMaps.bind(this);
                  this.postImpression = this.postImpression.bind(this);
                  this.removeNotification = this.removeNotification.bind(this);
                  this.unlike = this.unlike.bind(this);
+                 this.preLogout = this.preLogout.bind(this);
+                 this.removePopup = this.removePopup.bind(this);
         }
 
         componentDidMount(){
@@ -175,14 +206,26 @@ class Shops extends Component {
                 },3000);
                 
         }
+        removePopup(){
+                this.setState({
+                        popup : false
+                });
+        }
 
-       logout(){
-
-       }
+        preLogout(){
+                this.setState({
+                        popup : {
+                                text : "You are about to log out of Shops.",
+                                cancel : this.removePopup,
+                                continue : this.props.logout
+                        }
+                });
+        }
 
 
         render() {  
-                var notification = false;
+                var notification = this.state.notification ? <Notification info={this.state.notification} removeNotification={this.removeNotification}/> : false;
+                var popup = this.state.popup ? <Popup handler={this.state.popup}/> : false;
                 var profileData ={};
                 if(this.state.userInfo){
                         profileData={
@@ -192,17 +235,16 @@ class Shops extends Component {
                                 dislikedShopsCount: this.state.userInfo.disliked.length
                         };
                 }
-                if(this.state.notification){
-                  notification = <Notification info={this.state.notification} removeNotification={this.removeNotification}/>
-                }
+                
                 return ( 
                         <BrowserRouter>
                                 <div id="shops">
-                                        <Route render={(props)=><Navigation pathname={props.location.pathname} data={profileData}  logout={this.props.logout}/> }/>
+                                        <Route render={(props)=><Navigation pathname={props.location.pathname} data={profileData}  logout={this.preLogout}/> }/>
                                         <Route exact path='/' render={(props) => <NearbyShops shopsList={this.state.shopsList} coords={this.state.coords} postImpression={this.postImpression} /> } />
                                         <Route path='/favoriteshops'render={(props) => <FavoriteShops favoriteShopsList={ this.state.userInfo ? this.state.userInfo.liked : false} unlike={this.unlike} /> } />
-                                        <Route path='/profile' render={(props)=><Profile data={profileData}  logout={this.props.logout} />}/>
+                                        <Route path='/profile' render={(props)=><Profile data={profileData}  logout={this.preLogout} />}/>
                                         {notification}
+                                        {popup}
                                         
                                 </div>
                         </BrowserRouter>
