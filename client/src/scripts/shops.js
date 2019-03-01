@@ -1,3 +1,13 @@
+
+/*
+*
+*
+* The main authenticated shops component
+* all shared states and interactions are managed in this file
+*
+*
+*/
+
 import React, { Component } from 'react';
 import {BrowserRouter , Route} from 'react-router-dom';
 import Navigation from './navigation';
@@ -62,7 +72,7 @@ class Shops extends Component {
                 super(props);
                 this.state = { 
                         shopsList : [],
-                        notification : false,
+                        notification : {text : "Make sur to turn on the GPS",type: "orange"},
                         popup  : false,
                         mapsRequestInProgress : true
                  }
@@ -77,6 +87,7 @@ class Shops extends Component {
                  
 
                  window.addEventListener('scroll',() => {this.paginationHandler()});
+                 this.removeNotification();
         }
 
         

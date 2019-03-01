@@ -1,3 +1,14 @@
+/*
+*
+*
+* Components to render in the nearbyshops page
+*
+*
+*
+*/
+
+
+
 import React, { Component } from 'react';
 import shopPhotoPlaceholder from './graphics/logo.png';
 

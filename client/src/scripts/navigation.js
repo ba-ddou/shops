@@ -1,3 +1,14 @@
+
+/*
+*
+*
+* navigation bars components
+*
+*
+*
+*/
+
+
 import React, { Component } from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import Profile from './profile';

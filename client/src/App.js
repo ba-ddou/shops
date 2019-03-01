@@ -1,3 +1,13 @@
+/*
+*
+*
+* The main application component
+* contains the access token and renders either Shops or Home accordinaly
+*
+*
+*/
+
+
 import React, { Component } from 'react';
 import Home from './scripts/home';
 import Shops from './scripts/shops';

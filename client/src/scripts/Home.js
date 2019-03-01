@@ -1,3 +1,15 @@
+
+/*
+*
+*
+* Components to render in the home page (signin/signup)
+*
+*
+*
+*/
+
+
+
 import React, { Component } from 'react';
 import logo from './graphics/logo.png';
 

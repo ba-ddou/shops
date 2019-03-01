@@ -1,3 +1,15 @@
+/*
+*
+*
+* Components to render in the favoriteshops page
+*
+*
+*
+*/
+
+
+
+
 import React, { Component } from 'react';
 
 

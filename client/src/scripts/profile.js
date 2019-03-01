@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 
 
+/*
+*
+*
+* the profile component
+*
+*
+*
+*/
+
+
+
+
+
 class Profile extends Component {
    constructor(props){
        super(props);
