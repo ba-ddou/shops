@@ -35,7 +35,8 @@ git clone https://github.com/ba-ddou/shops.git
 ```
 
 ### Run the app
-  before running the app, you need to create an empty directory in the shops root directory for the MongoDb instance.
+  Before running the app, you need to create an empty directory in the shops root directory for the MongoDb instance.
+  for some reason the client/src/app.js and client/src/scripts/home.js files are capitalized when uploaded to github, so make sur to change the names to lowercase before running shops
 
 ```
 >mkdir data
